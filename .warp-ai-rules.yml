@@ -1,0 +1,50 @@
+version: 1
+project: despacho_oscar_fausto
+description: AI rules for safe command execution in the UI-only Flutter demo
+
+permissions:
+  # Allow only these directories
+  allowed_paths:
+    - ./lib
+    - ./assets
+    - ./test
+    - ./pubspec.yaml
+    - ./analysis_options.yaml
+
+  # Block risky operations
+  blocked_commands:
+    - rm
+    - del
+    - rmdir
+    - sudo
+    - chmod
+    - chown
+    - mv
+    - cp -r
+    - flutter pub add
+    - flutter pub remove
+    - flutter pub upgrade
+
+  # Allow these safe commands
+  allowed_commands:
+    - mkdir
+    - ni
+    - tree
+    - ls
+    - flutter run
+    - flutter build
+    - flutter analyze
+    - git add
+    - git commit
+    - git push
+
+  # Confirmation required for file creation or modification
+  require_confirmation_for:
+    - "*.dart"
+    - "*.yaml"
+
+safety:
+  max_file_create: 20
+  max_command_depth: 3
+
+
